@@ -1,0 +1,32 @@
+name: Sync to Hugging Face Hub
+
+# 1. Trigger Condition: When should this workflow run?
+on:
+  # Run automatically whenever code is pushed to the 'main' branch
+  push:
+    branches: [main]
+  # Allows you to trigger the workflow manually from the GitHub Actions tab
+  workflow_dispatch:
+
+# 2. Define the Job
+jobs:
+  sync-to-hub:
+    # Specifies the environment this job runs on (a clean Ubuntu VM)
+    runs-on: ubuntu-latest
+    steps:
+      # Step A: Checkout the code from your GitHub repository
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # Get the full history
+          lfs: true      # Essential for large files (like models)
+
+      # Step B: Push the code to the Hugging Face Space
+      - name: Push to Hugging Face Hub
+        # Set the environment variable HF_TOKEN using the GitHub Secret you created
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          # The key command that performs the Git push
+          # It uses your Hugging Face token as the password
+          # Replace <YourUsername> and <Space_Name> with your details!
+          git push -f https://<Nandunandu24>:$HF_TOKEN@huggingface.co/spaces/<Nandunandu24>/<AI_Image_Generator> main
