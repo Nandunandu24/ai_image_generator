@@ -1,0 +1,8 @@
+torch
+diffusers
+transformers
+accelerate
+gradio
+# Add any other libraries your code uses:
+# ftfy
+# bitsandbytes
